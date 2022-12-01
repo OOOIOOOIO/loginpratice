@@ -51,7 +51,7 @@ public class JwtUtil {
         builder.setHeaderParam("alg", "HS256");
 
         // Payload 설정
-        builder.setSubject(subject) // 제목 설정
+        builder.setSubject(subject) // 제목 설정 1000 * 60 * 2 == (1000(1초) * 60(1분)) * 2 => 2분 
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * expireMin)); // 유효기간 설정, expireMin = 2
 
         // 담고 싶은 정보 설정
@@ -78,9 +78,15 @@ public class JwtUtil {
      * @return
      */
     public Map<String, Object> checkAndGetClaims(String jwt) {
-        Jws<Claims> claims = Jwts.parser()
+//        Jws<Claims> claims = Jwts.parser()
+//                .setSigningKey(salt.getBytes())
+//                .parseClaimsJws(jwt);
+
+        Jws<Claims> claims = Jwts.parserBuilder()
                 .setSigningKey(salt.getBytes())
+                .build()
                 .parseClaimsJws(jwt);
+
         log.trace("claims : {}", claims);
 
         return claims.getBody();
