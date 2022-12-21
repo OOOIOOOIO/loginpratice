@@ -1,7 +1,7 @@
-package com.sh.loginpratice.websecurityjwt.config.jwt;
+package com.sh.loginpratice.restsecurityjwt.config.jwt;
 
-import com.sh.loginpratice.websecurityjwt.domain.User;
-import com.sh.loginpratice.websecurityjwt.service.security.UserDetailsImpl;
+import com.sh.loginpratice.restsecurityjwt.domain.User;
+import com.sh.loginpratice.restsecurityjwt.service.security.UserDetailsImpl;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.security.SignatureException;

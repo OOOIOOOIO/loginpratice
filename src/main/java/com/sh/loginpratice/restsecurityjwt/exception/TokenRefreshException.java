@@ -1,4 +1,4 @@
-package com.sh.loginpratice.websecurityjwt.exception;
+package com.sh.loginpratice.restsecurityjwt.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

@@ -1,8 +1,8 @@
-package com.sh.loginpratice.websecurityjwt.config;
+package com.sh.loginpratice.restsecurityjwt.config;
 
-import com.sh.loginpratice.websecurityjwt.config.jwt.AuthEntryPointJwt;
-import com.sh.loginpratice.websecurityjwt.config.jwt.AuthTokenFilter;
-import com.sh.loginpratice.websecurityjwt.service.security.UserDetailsServiceImpl;
+import com.sh.loginpratice.restsecurityjwt.config.jwt.AuthEntryPointJwt;
+import com.sh.loginpratice.restsecurityjwt.config.jwt.AuthTokenFilter;
+import com.sh.loginpratice.restsecurityjwt.service.security.UserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

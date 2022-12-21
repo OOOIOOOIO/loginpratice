@@ -1,4 +1,4 @@
-package com.sh.loginpratice.websecurityjwt.domain;
+package com.sh.loginpratice.restsecurityjwt.domain;
 
 import lombok.AccessLevel;
 import lombok.Builder;

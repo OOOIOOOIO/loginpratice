@@ -6,7 +6,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 //@ComponentScan(basePackages = {"com.sh.loginpratice.commonjwt"})
 //@ComponentScan(basePackages = {"com.sh.loginpratice.websecurityjwt"})
-@ComponentScan(basePackages = {"com.sh.loginpratice.restsecurityjwt"})
+@ComponentScan(basePackages = {"com.sh.loginpratice.rest_security_jwt_exception"})
 @SpringBootApplication
 public class LoginpraticeApplication {
 
