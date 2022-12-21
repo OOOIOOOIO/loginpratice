@@ -2,7 +2,11 @@ package com.sh.loginpratice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 
+//@ComponentScan(basePackages = {"com.sh.loginpratice.commonjwt"})
+//@ComponentScan(basePackages = {"com.sh.loginpratice.websecurityjwt"})
+@ComponentScan(basePackages = {"com.sh.loginpratice.restsecurityjwt"})
 @SpringBootApplication
 public class LoginpraticeApplication {
 

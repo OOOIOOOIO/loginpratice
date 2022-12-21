@@ -19,7 +19,7 @@ import java.util.Map;
 @Slf4j
 @Component
 public class JwtUtil {
-    // application.properties 에 사용된 값 주입, 비밀번호에 덧붙이는 값, signature에서 사용
+    // application.yml 에 사용된 값 주입, 비밀번호에 덧붙이는 값, signature에서 사용
     @Value("${jwt.salt}")
     private String salt;
 
@@ -32,6 +32,7 @@ public class JwtUtil {
      * @return
      */
     public String createAuthToken(String email) {
+
         return create(email, "authToken", expireMin);
     }
 
@@ -50,22 +51,22 @@ public class JwtUtil {
         builder.setHeaderParam("typ", "JWT");
         builder.setHeaderParam("alg", "HS256");
 
-        // Payload 설정
-        builder.setSubject(subject) // 제목 설정 1000 * 60 * 2 == (1000(1초) * 60(1분)) * 2 => 2분 
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * expireMin)); // 유효기간 설정, expireMin = 2
+        // Payload 설정(등록된 클레임)
+        builder.setSubject(subject) // sub : 제목 설정(authToken)
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * expireMin)); // exp : 유효기간 설정, expireMin = 2( 1000 * 60 * 2 == (1000(1초) * 60(1분)) * 2 => 2분)
 
-        // 담고 싶은 정보 설정
+        // Payload 담고 싶은 정보 설정(비공개 클레임)
         if (email != null) {
             builder.claim("user", email);
         }
 
         // signature 설정, 암호화
-//        builder.signWith(SignatureAlgorithm.HS256, salt.getBytes());
-        Key key = Keys.hmacShaKeyFor("qwertyuiopasdfghjklzxcvbnmqwerty".getBytes());
+        Key key = Keys.hmacShaKeyFor(salt.getBytes());
         builder.signWith(key, SignatureAlgorithm.HS256);
 
         // 직렬화 처리로 마무리
         final String jwt = builder.compact();
+
         log.info("토큰 발행 : {}", jwt);
 
         return jwt;
@@ -75,21 +76,36 @@ public class JwtUtil {
      * JWT 토큰을 분석해서 필요한 정보를 반환한다.
      * 토큰에 문제가 있다면 Runtime Exception을 던진다.
      * @param jwt
+     * @Throws
+     * parseClaimsJws Throws:
+     *      UnsupportedJwtException – if the claimsJws argument does not represent an Claims JWS
+     *      MalformedJwtException – if the claimsJws string is not a valid JWS
+     *      SignatureException – if the claimsJws JWS signature validation fails
+     *      ExpiredJwtException – if the specified JWT is a Claims JWT and the Claims has an expiration time before the time this method is invoked.
+     *      IllegalArgumentException – if the claimsJws string is null or empty or only whitespace
      * @return
+     *
      */
     public Map<String, Object> checkAndGetClaims(String jwt) {
-//        Jws<Claims> claims = Jwts.parser()
-//                .setSigningKey(salt.getBytes())
-//                .parseClaimsJws(jwt);
 
+        // JWS란 서명된 JWT이다. ~~~.~~~.~~~ 형태를 JWS라고 한다!
         Jws<Claims> claims = Jwts.parserBuilder()
-                .setSigningKey(salt.getBytes())
+                .setSigningKey(salt.getBytes()) // signature를 secrete key로 설정했는지, publickey로 설정했는지 확인! 나는 secret key로 설정
                 .build()
-                .parseClaimsJws(jwt);
+                .parseClaimsJws(jwt); // 여기서 Runtime Exception이 던져진다.
 
         log.trace("claims : {}", claims);
 
         return claims.getBody();
+    }
+
+    /**
+     * Refresh Token 생성
+     * 인증을 위한 정보는 유지하지 않고 유효기간을 auth-token의 5배로 잡았다.
+     * @return
+     */
+    public String createRefreshToken(){
+        return create(null, "refreshToken", expireMin * 5);
     }
 
 }

@@ -1,0 +1,40 @@
+server:
+  port: 8888
+
+spring:
+  datasource:
+#    url: jdbc:h2:tcp://localhost/~/websecurityjwt
+    url: jdbc:h2:tcp://localhost/~/restsecurityjwt
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    open-in-view: false
+    database-platform: org.hibernate.dialect.H2Dialect
+
+  properties:
+    hibernate:
+      # show_sql: true
+      format_sql: true
+
+#logging.level:
+#  org.hibernate.SQL: debug
+
+
+jwt:
+  # secret : sinature에 붙이는 문자열 느낌, 256bit 이상이여야 한다..(영어 32글자(1글자 8bit))
+  secret: qwertyuiopasdfghjklzxcvbnmqwerty
+  # 토큰 만료 기간
+  expireMin: 2 # 실제로 86400000
+  # 쿠키 이름
+  cookieName: polite159-jwt
+  # 리프레쉬 토큰 쿠키 이름
+  refreshCookieName: polite159-jwt-refresh
+  # 리프레쉬 토큰 만료 기간
+  refreshExpireMin: 2
+
+
+
