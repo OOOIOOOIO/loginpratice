@@ -20,7 +20,7 @@ import java.util.Map;
 @Component
 public class JwtUtil {
     // application.yml 에 사용된 값 주입, 비밀번호에 덧붙이는 값, signature에서 사용
-    @Value("${jwt.salt}")
+    @Value("${jwt.secret}")
     private String salt;
 
     @Value("${jwt.expireMin}")

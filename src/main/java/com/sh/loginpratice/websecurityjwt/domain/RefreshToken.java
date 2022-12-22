@@ -9,6 +9,7 @@ import java.time.Instant;
 @Getter
 @Setter
 @Entity
+@Table(name = "REFRESHTOKEN")
 public class RefreshToken {
 
     @Id

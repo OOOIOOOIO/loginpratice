@@ -40,13 +40,14 @@ public class JwtUtils {
     public ResponseCookie generateJwtCookie(UserDetailsImpl userPrincipal) {
         String jwt = generateTokenFromUsername(userPrincipal.getUsername());
 
-        ResponseCookie cookie = ResponseCookie.from(jwtCookie, jwt)
-                .path("/api") // Cookie 헤더를 전송하기 위하여 요청되는 URL 내에 반드시 존재해야 하는 URL 경로
-                .maxAge(24 * 60 * 60)
-                .httpOnly(true) //  Cross-site 스크립팅 공격을 방지하기 위한 옵션
-                .build();
-
-        return cookie;
+//        ResponseCookie cookie = ResponseCookie.from(jwtCookie, jwt)
+//                .path("/api") // Cookie 헤더를 전송하기 위하여 요청되는 URL 내에 반드시 존재해야 하는 URL 경로
+//                .maxAge(24 * 60 * 60)
+//                .httpOnly(true) //  Cross-site 스크립팅 공격을 방지하기 위한 옵션
+//                .build();
+//
+//        return cookie;
+        return generateCookie(jwtCookie, jwt, "/api");
     }
 
     /**
@@ -183,7 +184,8 @@ public class JwtUtils {
                 .from(name, value)
                 .path(path)
                 .maxAge(24 * 60 * 60)
-                .httpOnly(true).build();
+                .httpOnly(true)
+                .build();
 
         return cookie;
     }

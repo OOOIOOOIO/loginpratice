@@ -5,8 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 //@ComponentScan(basePackages = {"com.sh.loginpratice.commonjwt"})
-//@ComponentScan(basePackages = {"com.sh.loginpratice.websecurityjwt"})
-@ComponentScan(basePackages = {"com.sh.loginpratice.rest_security_jwt_exception"})
+@ComponentScan(basePackages = {"com.sh.loginpratice.websecurityjwt"})
 @SpringBootApplication
 public class LoginpraticeApplication {
 

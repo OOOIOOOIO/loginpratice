@@ -3,8 +3,8 @@ server:
 
 spring:
   datasource:
-#    url: jdbc:h2:tcp://localhost/~/websecurityjwt
-    url: jdbc:h2:tcp://localhost/~/restsecurityjwt
+    url: jdbc:h2:tcp://localhost/~/websecurityjwt
+#    url: jdbc:h2:tcp://localhost/~/restsecurityjwt
     username: sa
     password:
     driver-class-name: org.h2.Driver
@@ -34,7 +34,7 @@ jwt:
   # 리프레쉬 토큰 쿠키 이름
   refreshCookieName: polite159-jwt-refresh
   # 리프레쉬 토큰 만료 기간
-  refreshExpireMin: 2
+  refreshExpireMin: 16000000
 
 
 

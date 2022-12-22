@@ -42,9 +42,10 @@ public class RefreshTokenService {
         refreshToken.setExpiryDate(Instant.now().plusMillis(refreshTokenMin));
         refreshToken.setToken(UUID.randomUUID().toString());
 
-        refreshToken = refreshTokenRepository.save(refreshToken);
-
-        return refreshToken;
+        System.out.println("========================");
+        RefreshToken saveRefreshToken = refreshTokenRepository.save(refreshToken);
+        System.out.println("========================");
+        return saveRefreshToken;
     }
 
     /**

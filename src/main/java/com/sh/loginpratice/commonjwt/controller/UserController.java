@@ -56,6 +56,7 @@ public class UserController {
 
         // DB에 저장된 refresh token의 정보가 전달된 토큰의 정보와 같은지 판단.
         if (user.getRefreshToken().equals(userService.getRefreshToken(user.getEmail()))) {
+
             String authToken = jwtUtil.createAuthToken(user.getEmail()); // 토큰 생성(signature만 다르다!)
             result.put("jwt-auth-token", authToken);
 

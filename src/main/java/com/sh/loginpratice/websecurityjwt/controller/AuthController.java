@@ -73,20 +73,23 @@ public class AuthController {
         // 유저 정보 가져오기
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 
-        // 쿠키 생성
+        // jwt 쿠키 생성
         ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(userDetails);
 
         List<String> roles = userDetails.getAuthorities().stream()
                 .map(item -> item.getAuthority())
                 .collect(Collectors.toList());
 
-        // refreshToken
+        // refreshToken db 저장
         RefreshToken refreshToken = refreshTokenService.createRefreshToken(userDetails.getUserId());
+
+        //refreshToken 쿠키 생성
         ResponseCookie jwtRefreshCookie = jwtUtils.generateRefreshJwtCookie(refreshToken.getToken());
 
         // body에 유저 정보 반환 및 쿠키 생성
         return ResponseEntity.ok()
                 .header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
+                .header(HttpHeaders.SET_COOKIE, jwtRefreshCookie.toString())
                 .body(new UserInfoResponseDto(userDetails.getUserId(),
                         userDetails.getUsername(),
                         userDetails.getEmail(),
